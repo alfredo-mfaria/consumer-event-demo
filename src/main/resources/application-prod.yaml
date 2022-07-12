@@ -1,0 +1,22 @@
+server:
+  port: 8082
+
+spring:
+  cloud:
+    stream:
+      function:
+        definition: metricConsumer
+      bindings:
+        metricConsumer-in-0:
+          destination: metric-items
+          group: myGroup
+  kafka:
+    bootstrap-servers: https://my-learning.servicebus.windows.net:9093 # This was deleted already, use as REF
+    client-id: metric-consumer
+    properties:
+      sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=sb://my-learning.servicebus.windows.net/;SharedAccessKeyName=admin;SharedAccessKey=iji4tsb9vAgcOWXMI7dqytLTxGKtb+U9QqICpGSZ1j4="; # This was deleted already, use as REF
+      sasl.mechanism: PLAIN
+      security.protocol: SASL_SSL
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
